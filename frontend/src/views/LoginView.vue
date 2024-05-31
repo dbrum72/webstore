@@ -1,0 +1,126 @@
+<template>
+  <div id="login" class="conteudo">
+    <div class="pageHeader">
+      <div class="text-start">
+        <span>LOGIN</span>
+      </div>
+    </div>
+    <div>
+      <img src="@/assets/images/engrenagem.png">
+    </div>
+    <div class="card form-bg m-4">
+      <div class="card-body">
+
+        <div class="row mb-3">
+
+          <div class="col">
+            <div class='form-floating'>
+              <input type="email" class="form-control" id="validationServerLoginEmail"
+                aria-describedby="validationServerLoginEmailFeedback" required autocomplete="email" placeholder="Email"
+                v-model="user.email" />
+              <label for="validationServerLoginEmail">Email</label>
+            </div>
+            <div v-if="errors.email" id="validationServerLoginEmailFeedback" class="invalid-feedback text-start">{{
+              errors.email[0] }}</div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col">
+            <div class='form-floating'>
+              <input type="password" class="form-control" id="validationServerLoginSenha"
+                aria-describedby="validationServerLoginSenhaFeedback" required autocomplete="current-password"
+                placeholder="Senha" v-model="user.password" />
+              <label for="validationServerLoginSenha">Senha</label>
+            </div>
+            <div v-if="errors.password" id="validationServerLoginSenhaFeedback" class="invalid-feedback text-start">{{
+              errors.password[0] }}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 offset-md-4">
+            <button type="button" class="btn btn-acao" @click="login()">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+    
+<script>
+import http from '@/services/http.js'
+import { mapMutations } from "vuex";
+
+export default {
+
+  name: "LoginView",
+
+  data() {
+    return {
+      user: {
+        email: 'dbrum72@gmail.com',
+        password: 'password'
+      },
+      errors: [],
+      loaderActive: false,
+      text: ''
+    }
+  },
+
+  methods: {
+
+    ...mapMutations(['PUSH_NOTIFICATION', 'SET_USER']),
+
+    async login() {
+
+      this.loaderActive = true
+      this.text = 'Autenticando...'
+
+      try {
+        let url = `${process.env.VUE_APP_BACKEND_URL}/auth/login`
+        let response = await http.post(url, this.user)        
+   
+        document.cookie = 'token=' + response.data.access_token + ';SameSite=Lax'
+        localStorage.setItem('user_auth', JSON.stringify(response.data))
+        this.SET_USER(response.data)
+        this.$router.push({ name: 'Dashboard' })
+        
+      } catch (error) {
+        if (error?.response?.status === 401) {
+          console.log(error)
+          this.PUSH_NOTIFICATION({
+            type: 'erro',
+            message: 'Acesso não autorizado.'
+          })
+        } else if (error?.response?.status === 403) {
+          this.PUSH_NOTIFICATION({
+            type: 'erro',
+            message: error.response.data.msg
+          })
+        }
+        this.$router.push({ name: 'Login' })
+      }
+      finally {
+        this.text = ''
+        this.loaderActive = false
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+#login {
+  grid-area: appContainer;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+}
+
+img {
+  height: 250px;
+}
+</style>

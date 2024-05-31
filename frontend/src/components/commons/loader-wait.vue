@@ -1,0 +1,78 @@
+<template>
+  <div class="loader-wrapper">
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <p>{{ text }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+
+  name: "LoaderWait",
+
+  props: {
+    active: Boolean,
+    text: String
+  }
+}
+</script>
+
+<style scoped>
+p {
+  font-size: 0.8em;
+  font-weight: 500;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  color: #234148;
+}
+
+.loader-wrapper {
+  text-align: center;
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.loader div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: 6px;
+  border: 6px solid #38E38B;
+  border-radius: 50%;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #38E38B transparent transparent transparent;
+}
+
+.loader div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.loader div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.loader div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
