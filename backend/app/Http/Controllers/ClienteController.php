@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-use App\Repositories\ClienteRepository;
-use App\Http\Requests\ClienteStoreRequest;
+use App\Http\Requests\ClienteSaveRequest;
 use App\Http\Resources\ClienteResource;
+use App\Repositories\ClienteRepository;
+
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller {
@@ -41,9 +42,9 @@ class ClienteController extends Controller {
 
     /**************************************************/
     
-    public function store(ClienteStoreRequest $request) {
+    public function store(ClienteSaveRequest $request) {
 
-        if($cliente = $this->cliente->create($request->all())) {
+        if($store = $this->cliente->create($request->all())) {
 
             return response()->json([ 'errors' => [], 'msg' => 'Registro criado com sucesso!'], 201);
         }
@@ -53,11 +54,11 @@ class ClienteController extends Controller {
 
     /**************************************************/
     
-    public function update(Request $request, $id) {
+    public function update(ClienteSaveRequest $request, $cliente) {
         
-        if($cliente = $this->cliente->find($id)) {            
+        if($update = $this->cliente->find($cliente)) {            
 
-            if($cliente->update($request->all())) {
+            if($update->update($request->all())) {
 
                 return response()->json([ 'errors' => [], 'msg' => 'Registro atualizado com sucesso!'], 200);
             }       

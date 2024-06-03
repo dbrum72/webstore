@@ -14,28 +14,7 @@ class Produto extends Model {
     protected $fillable = [
         'nome',
         'descricao',
-        'codigo_barras'
+        'codigo',
+        'ativo'
     ];
-
-    protected static function boot() {
-        parent::boot();
-    
-        static::deleting(function($detalhe) {
-            $detalhe->detalhe()->delete();
-        });
-
-        static::deleting(function($estoque) {
-            $estoque->estoque()->delete();
-        });
-    }
-
-    function detalhe() {
-
-        return $this->hasOne(ProdutoDetalhe::class);
-    }
-
-    function estoque() {
-
-        return $this->hasOne(Estoque::class);
-    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClienteStoreRequest extends FormRequest {
+class ClienteSaveRequest extends FormRequest {
 
     public function authorize(): bool {
 
@@ -16,9 +16,10 @@ class ClienteStoreRequest extends FormRequest {
     public function rules() {
         
         return [
+            'id' => 'unique:clientes,id,'.(isset($this->cliente) ? $this->cliente : null).',id',
             'nome' => 'required|min:3|max:255',
-            'cnpj_cpf' => 'required|unique:clientes,cnpj_cpf,'.$this->id.',id|digits_between:11,14',
-            'email' => 'nullable|email|unique:clientes,email,'.$this->id.',id',
+            'cnpj_cpf' => 'required|digits_between:11,14|unique:clientes,cnpj_cpf,'.(isset($this->cliente) ? $this->cliente : null).',id',
+            'email' => 'nullable|email|unique:clientes,email,'.(isset($this->cliente) ? $this->cliente : null).',id',
             'tel_cel' => 'nullable|digits:11',            
         ];
     }

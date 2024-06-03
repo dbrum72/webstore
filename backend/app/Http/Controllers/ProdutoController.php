@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
+use App\Http\Requests\ProdutoSaveRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Repositories\ProdutoRepository;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class ProdutoController extends Controller {
         return response()->json(['errors' => ['error' => 'Nenhum registro localizado.']], 404);
     }
 
-    public function store(Request $request) {
+    public function store(ProdutoSaveRequest $request) {
 
-        if($produto = $this->produto->create($request->all())) {
+        if($store = $this->produto->create($request->all())) {
 
             return response()->json([ 'errors' => [], 'msg' => 'Registro criado com sucesso!'], 201);
         }
@@ -54,20 +55,20 @@ class ProdutoController extends Controller {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Produto $produto)
-    {
-        //
-    }
+    public function update(ProdutoSaveRequest $request, $produto) {
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Produto $produto)
-    {
-        //
+        if($update = $this->produto->find($produto)) {
+
+            if($update->update($request->all())) {
+
+                return response()->json([ 'errors' => [], 'msg' => 'Registro atualizado com sucesso!'], 200);
+            }       
+
+            return response()->json(['errors' => ['error' => 'Erro ao gravar o registro']], 404);
+        }
+
+        return response()->json(['errors' => ['error' => 'O registro não foi localizado.']], 404);
+
     }
 
     /**
