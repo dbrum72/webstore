@@ -3,14 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\ClienteResource;
-use App\Http\Resources\ClienteEnderecoResource;
-use App\Http\Resources\FabricanteResource;
-use App\Http\Resources\FornecedorResource;
-use App\Models\Categoria;
+use App\Http\Resources\ProdutoResource;
+use App\Http\Resources\PedidoResource;
 use App\Models\Cliente;
-use App\Models\ClienteEndereco;
-use App\Models\Fabricante;
-use App\Models\Fornecedor;
+use App\Models\Produto;
+use App\Models\Pedido;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -37,13 +34,24 @@ Route::group([
 ], function ($router) {
 
     /**** Cliente *****/
-    Route::get('/cliente/{id}', function (string $id) {
-        return new ClienteResource(Cliente::findOrFail($id));
+    Route::resource('/cliente', 'ClienteController', ['except' => ['show','create','edit']]);
+    Route::get('/cliente/{cliente}', function (string $cliente) {
+        return new ClienteResource(Cliente::findOrFail($cliente));
     });
-    Route::resource('cliente', 'ClienteController', ['except'=> ['show']]);
+    
 
     /**** Produto *****/
-    Route::resource('produto', 'ProdutoController', ['except' => 'show']);
+    Route::resource('/produto', 'ProdutoController', ['except' => ['show','create','edit']]);
+    Route::get('/produto/{produto}', function (string $produto) {
+        return new ProdutoResource(Produto::findOrFail($produto));
+    });
+
+
+    /**** Pedido *****/
+    Route::resource('/pedido', 'PedidoController', ['except' => ['show','create','edit']]);
+    Route::get('/pedido/{pedido}', function (string $pedido) {
+        return new PedidoResource(Pedido::findOrFail($pedido));
+    });
 });
 
 

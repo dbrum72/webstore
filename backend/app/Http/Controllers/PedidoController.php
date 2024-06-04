@@ -2,38 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produto;
-use App\Http\Requests\ProdutoSaveRequest;
-use App\Http\Resources\ProdutoResource;
-use App\Repositories\ProdutoRepository;
+use App\Models\Pedido;
+use App\Http\Requests\PedidoSaveRequest;
+use App\Http\Resources\PedidoResource;
+use App\Repositories\PedidoRepository;
 use Illuminate\Http\Request;
 
-class ProdutoController extends Controller {
+class PedidoController extends Controller {
 
-    public function __construct(Produto $produto) {
+    public function __construct(Pedido $pedido) {
 
-        $this->produto = $produto;
+        $this->pedido = $pedido;
     }
 
     /********************************************************************************************************/
-    
+
     public function index(Request $request) {
 
-        $produtoRepository = new ProdutoRepository($this->produto);
+        $pedidoRepository = new PedidoRepository($this->pedido);
 
         if($request->has('atributos')) {
 
-            $produtoRepository->selectAtributos($request->atributos);
+            $pedidoRepository->selectAtributos($request->atributos);
         }
 
         if($request->has('filtro')) {
 
-            $produtoRepository->filtro($request->filtro);
+            $pedidoRepository->filtro($request->filtro);
         }
 
-        if($produtos = $produtoRepository->getResultado()) {   
+        if($pedidos = $pedidoRepository->getResultado()) {   
 
-            return new ProdutoResource($produtos);            
+            return new PedidoResource($pedidos);            
         }
 
         return response()->json(['errors' => ['error' => 'Nenhum registro localizado.']], 404);
@@ -41,21 +41,21 @@ class ProdutoController extends Controller {
 
     /********************************************************************************************************/
 
-    public function store(ProdutoSaveRequest $request) {
+    public function store(PedidoSaveRequest $request) {
 
-        if($store = $this->produto->create($request->all())) {
+        if($store = $this->pedido->create($request->all())) {
 
             return response()->json([ 'errors' => [], 'msg' => 'Registro criado com sucesso!'], 201);
         }
 
-        return response()->json(['errors' => ['error' => 'Erro ao criar o registro']], 404);
+        return response()->json(['errors' => ['error' => 'Erro ao criar o registro']], 404); 
     }
 
     /********************************************************************************************************/
 
-    public function update(ProdutoSaveRequest $request, $produto) {
+    public function update(PedidoSaveRequest $request, $pedido) {
 
-        if($update = $this->produto->find($produto)) {
+        if($update = $this->pedido->find($pedido)) {
 
             if($update->update($request->all())) {
 
@@ -64,16 +64,13 @@ class ProdutoController extends Controller {
 
             return response()->json(['errors' => ['error' => 'Erro ao gravar o registro']], 404);
         }
-
-        return response()->json(['errors' => ['error' => 'O registro não foi localizado.']], 404);
-
     }
 
     /********************************************************************************************************/
+    
+    public function destroy($pedido) {
 
-    public function destroy($produto) {
-
-        if($destroy = $this->produto->find($produto)) {      
+        if($destroy = $this->pedido->find($pedido)) {      
             
             if($destroy->delete()) {
 

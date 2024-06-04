@@ -18,18 +18,5 @@ class Cliente extends Model{
         'tel_cel',
         'whatsapp',
         'email',        
-    ];
-
-    protected static function boot() {
-        parent::boot();
-    
-        static::deleting(function($enderecos) {
-            $enderecos->enderecos()->delete();
-        });
-    }
-
-    function enderecos() {
-
-        return $this->hasMany(ClienteEndereco::class);
-    }    
+    ];   
 }

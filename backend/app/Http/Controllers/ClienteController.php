@@ -16,7 +16,7 @@ class ClienteController extends Controller {
         $this->cliente = $cliente;
     }
 
-    /**************************************************/
+    /********************************************************************************************************/
     
     public function index(Request $request) {
         
@@ -40,7 +40,7 @@ class ClienteController extends Controller {
         return response()->json(['errors' => ['error' => 'Nenhum registro localizado.']], 404);
     }
 
-    /**************************************************/
+    /********************************************************************************************************/
     
     public function store(ClienteSaveRequest $request) {
 
@@ -52,7 +52,7 @@ class ClienteController extends Controller {
         return response()->json(['errors' => ['error' => 'Erro ao criar o registro']], 404);        
     }
 
-    /**************************************************/
+    /********************************************************************************************************/
     
     public function update(ClienteSaveRequest $request, $cliente) {
         
@@ -69,13 +69,13 @@ class ClienteController extends Controller {
         return response()->json(['errors' => ['error' => 'O registro não foi localizado.']], 404);        
     }
 
-    /**************************************************/
+    /********************************************************************************************************/
     
-    public function destroy($id) {
+    public function destroy($cliente) {
 
-        if($cliente = $this->cliente->find($id)) {      
+        if($destroy = $this->cliente->find($cliente)) {      
             
-            if($cliente->delete()) {
+            if($destroy->delete()) {
 
                 return response()->json(['msg' => 'Registro removido com sucesso!'], 200);
             }
