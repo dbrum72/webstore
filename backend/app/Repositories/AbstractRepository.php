@@ -21,6 +21,16 @@ class AbstractRepository {
         $this->model = $this->model->selectRaw($atributos);
     }
 
+    public function selectWith($with) {
+
+        $withs = explode(',', $with);
+
+        foreach($withs as $key => $with) {
+
+            $this->model = $this->model->with($with);
+        }        
+    }
+
     public function filtro($filtros) {
 
         $filtros = explode(';', $filtros);

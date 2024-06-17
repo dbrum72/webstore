@@ -12,9 +12,15 @@ class Produto extends Model {
     use SoftDeletes;
 
     protected $fillable = [
+        'categoria_id',
         'nome',
         'descricao',
         'codigo',
         'ativo'
     ];
+
+    function pedidos(): BelongsToMany {
+
+        return $this->belongsToMany('App\Models\Pedido', 'pedidos_produtos');
+    }
 }

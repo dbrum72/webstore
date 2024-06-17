@@ -11,12 +11,6 @@
                 <li><router-link :to="{ name: 'Cliente' }">Cliente</router-link></li>
             </ul>
             <ul>
-                <li><router-link :to="{ name: 'Fabricante' }">Fabricante</router-link></li>                   
-            </ul>
-            <ul>
-                <li><router-link :to="{ name: 'Fornecedor'}">Fornecedor</router-link></li>                      
-            </ul>
-            <ul>
                 <li><router-link :to="{ name: 'Produto' }">Produto</router-link></li>                    
             </ul>
             <ul>
@@ -37,15 +31,7 @@ export default {
 
     methods: {
 
-        ...mapMutations([
-            'SET_FORNECEDOR',
-            'SET_TOGGLE_MENU'
-        ]),
-
-        setNovoFabricante() {
-            this.SET_FABRICANTE({})
-            this.$router.push('/fabricante/salvar')
-        },
+        ...mapMutations([ 'SET_TOGGLE_MENU' ]),
     }
 }
 </script>

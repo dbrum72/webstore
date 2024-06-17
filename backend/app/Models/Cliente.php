@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\ClienteEndereco;
+use App\Models\Pedido;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model{
 
@@ -18,5 +19,10 @@ class Cliente extends Model{
         'tel_cel',
         'whatsapp',
         'email',        
-    ];   
+    ];
+
+    function pedidos(): HasMany {
+
+        return $this->HasMany(Pedido::class);
+    }
 }

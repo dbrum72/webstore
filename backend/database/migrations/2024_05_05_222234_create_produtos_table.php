@@ -9,7 +9,8 @@ return new class extends Migration {
     public function up(): void {
 
         Schema::create('produtos', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
+            $table->foreignId('categoria_id')->constrained()->cascadeOnDelete();
             $table->string('nome', 255);
             $table->text('descricao')->nullable();
             $table->bigInteger('codigo')->nullable();
@@ -21,6 +22,10 @@ return new class extends Migration {
 
     public function down(): void {
 
+        Schema::disableForeignKeysConstraints();
+
         Schema::dropIfExists('produtos');
+
+        Schema::enableForeignKeysConstraints();
     }
 };

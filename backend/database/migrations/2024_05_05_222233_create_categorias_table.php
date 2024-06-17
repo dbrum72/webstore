@@ -8,11 +8,10 @@ return new class extends Migration {
     
     public function up(): void {
 
-        Schema::create('pedidos', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {            
             $table->id();
-            $table->foreignId('cliente_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('pedido_status_id');
-            $table->timestamps();
+            $table->foreignId('pai_id')->nullable()->constrained('categorias')->cascadeOnDelete();
+            $table->string('name', 25);
         });
     }
 
@@ -20,7 +19,7 @@ return new class extends Migration {
 
         Schema::disableForeignKeyConstraints();
 
-        Schema::dropIfExists('pedidos');
+        Schema::dropIfExists('categorias');
 
         Schema::enableForeignKeyConstraints();
     }

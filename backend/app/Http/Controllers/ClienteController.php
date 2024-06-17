@@ -27,6 +27,13 @@ class ClienteController extends Controller {
             $clienteRepository->selectAtributos($request->atributos);
         }
 
+        if($request->has('with')) {
+
+            $clienteRepository->selectWith($request->with);
+        }
+
+        
+
         if($request->has('filtro')) {
 
             $clienteRepository->filtro($request->filtro);

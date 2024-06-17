@@ -32,6 +32,14 @@ const routes = [
         }
     },
     {
+        path: '/pedido',
+        name: 'Pedido',
+        component: () => import('@/views/PedidoView.vue'),
+        beforeEnter: (to) => {
+            if (to.name !== 'Login' && !store.getters['isLogged']) return { name: 'Login' }
+        }
+    },    
+    {
         path: '/produto',
         name: 'Produto',
         component: () => import('@/views/ProdutoView.vue'),

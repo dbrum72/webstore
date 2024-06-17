@@ -6,6 +6,7 @@ export default createStore({
     state: {
         user: null,
         cliente: {},
+        clientes: {},
         fabricante: {},
         fornecedor: {},
         isNavbarVisible: false,
@@ -36,6 +37,10 @@ export default createStore({
         },
 
         /***** CLIENTE *****************************************************************/
+
+        SET_CLIENTES: (state, payload) => {
+            state.clientes = payload
+        },
 
         SET_CLIENTE: (state, payload) => {
             state.cliente = payload
