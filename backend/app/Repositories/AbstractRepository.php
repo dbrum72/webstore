@@ -39,7 +39,7 @@ class AbstractRepository {
 
             $parametros = explode(':', $condicao);
 
-            $this->model = $this->model->where($parametros[0], $parametros[1], $parametros[2]);
+            $this->model = $this->model->orWhere($parametros[0], $parametros[1], $parametros[2]);
         }
     }
 

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Model\Estoque;
-use App\Model\ProdutoDetalhe;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Produto extends Model {
@@ -13,14 +13,19 @@ class Produto extends Model {
 
     protected $fillable = [
         'categoria_id',
+        'codigo',
         'nome',
         'descricao',
-        'codigo',
         'ativo'
     ];
 
-    function pedidos(): BelongsToMany {
+    public function pedidos(): BelongsToMany {
 
         return $this->belongsToMany('App\Models\Pedido', 'pedidos_produtos');
+    }
+
+    public function categoria(): BelongsTo {
+
+        return $this->belongsTo('App\Models\Categoria', 'categoria_id');
     }
 }

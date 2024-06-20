@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pedido extends Model {
 
-    protected $fillable = ['cliente_id'];
+    protected $fillable = [
+        'cliente_id',
+        'progresso_id'
+    ];
 
     function cliente(): BelongsTo {
 
@@ -21,8 +23,8 @@ class Pedido extends Model {
         return $this->belongsToMany('App\Models\Produto', 'pedidos_produtos')->withPivot('id','quantidade','valor');
     }
 
-    function status(): HasOne {
+    function progresso(): BelongsTo {
 
-        return $this->hasOne('App\Models\PedidoStatus');
+        return $this->belongsTo('App\Models\Progresso');
     }
 }

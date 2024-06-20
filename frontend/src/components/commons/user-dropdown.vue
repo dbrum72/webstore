@@ -74,13 +74,14 @@ export default {
     display: flex;
     align-items: center;    
     padding: 5px 10px;
-    border: solid 1px rgb(32,48,65);    
+    color: #fff;
+    border: solid 1px #fff;    
     cursor: pointer
 }
 
 .user-button a {
     font-weight: 500;
-    color: rgb(32,48,65);
+    color: #fff;
     text-decoration: none;
 }
 

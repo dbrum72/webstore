@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Pedido;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model{
 
@@ -21,8 +20,8 @@ class Cliente extends Model{
         'email',        
     ];
 
-    function pedidos(): HasMany {
+    public function pedidos(): HasMany {
 
-        return $this->HasMany(Pedido::class);
+        return $this->HasMany('App\Models\Pedido', 'cliente_id');
     }
 }

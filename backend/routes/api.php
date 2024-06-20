@@ -60,6 +60,12 @@ Route::group([
     Route::get('/pedido_produto/{pedido_produto}', function (string $pedido_produto) {
         return new PedidoProdutoResource(PedidoProduto::findOrFail($pedido_produto));
     });
+
+    /**** Categoria *****/
+    Route::resource('/categoria', 'CategoriaController', ['except' => ['show','create','edit']]);
+    Route::get('/categoria/{categoria}', function (string $categoria) {
+        return new CategoriaResource(Categoria::findOrFail($categoria));
+    });
 });
 
 

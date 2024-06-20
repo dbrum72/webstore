@@ -6,7 +6,6 @@ use App\Models\Cliente;
 use App\Http\Requests\ClienteSaveRequest;
 use App\Http\Resources\ClienteResource;
 use App\Repositories\ClienteRepository;
-
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller {
@@ -30,9 +29,7 @@ class ClienteController extends Controller {
         if($request->has('with')) {
 
             $clienteRepository->selectWith($request->with);
-        }
-
-        
+        }        
 
         if($request->has('filtro')) {
 

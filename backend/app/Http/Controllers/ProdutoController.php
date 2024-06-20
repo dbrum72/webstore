@@ -26,6 +26,11 @@ class ProdutoController extends Controller {
             $produtoRepository->selectAtributos($request->atributos);
         }
 
+        if($request->has('with')) {
+
+            $produtoRepository->selectWith($request->with);
+        }
+
         if($request->has('filtro')) {
 
             $produtoRepository->filtro($request->filtro);

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PedidoStatus;
+use App\Models\Progresso;
 use Illuminate\Http\Request;
 
-class PedidoStatusController extends Controller
+class ProgressoController extends Controller
 {
     /**
      * Display a listing of the resource.

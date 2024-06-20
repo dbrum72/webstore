@@ -24,8 +24,9 @@ class ProdutoSaveRequest extends FormRequest {
 
         return [
             'id' => 'unique:produtos,id,'.(isset($this->produto) ? $this->produto : null).',id',
+            'categoria_id' => 'required||exists:categorias,id',
             'nome' => 'required|min:3|max:255',
-            'descricao' => 'required|max:255',
+            'descricao' => 'required',
             'codigo' => 'nullable|digits_between:13,15|unique:produtos,codigo,'.(isset($this->produto) ? $this->produto : null).',id',
         ];
     }
@@ -35,6 +36,7 @@ class ProdutoSaveRequest extends FormRequest {
         return [
             'required' => 'Este campo é obrigatório.',
             'unique' => 'O dado informado já existe.',
+            'exists' => 'O dado informado não existe.',
             'min' => 'Campo deve possuir no mínimo 3 caracteres.',
             'max' => 'Campo deve possuir no máximo 255 caracteres.',
             'digits_between' => 'Este campo deve ter entre 13 e 15 dígitos.'

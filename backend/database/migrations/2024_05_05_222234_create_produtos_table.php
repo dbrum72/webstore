@@ -10,10 +10,10 @@ return new class extends Migration {
 
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('codigo')->nullable();
             $table->foreignId('categoria_id')->constrained()->cascadeOnDelete();
             $table->string('nome', 255);
-            $table->text('descricao')->nullable();
-            $table->bigInteger('codigo')->nullable();
+            $table->text('descricao');            
             $table->boolean('ativo')->default('1');
             $table->timestamps();
             $table->softDeletes();

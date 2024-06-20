@@ -11,7 +11,9 @@ return new class extends Migration {
         Schema::create('categorias', function (Blueprint $table) {            
             $table->id();
             $table->foreignId('pai_id')->nullable()->constrained('categorias')->cascadeOnDelete();
-            $table->string('name', 25);
+            $table->string('nome', 25);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

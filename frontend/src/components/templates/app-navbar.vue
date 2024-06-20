@@ -1,38 +1,18 @@
 <template>
-    <div class="navbar" v-show="isNavbarVisible">
-        <div>
-            <img src="@/assets/logo.png">
-        </div>
-        <div id="nav">
-            <ul>
-                <li><router-link :to="{ name: 'Site' }">Início</router-link></li>
-            </ul>
-            <ul>
-                <li><router-link :to="{ name: 'Cliente' }">Cliente</router-link></li>
-            </ul>
-            <ul>
-                <li><router-link :to="{ name: 'Produto' }">Produto</router-link></li>                    
-            </ul>
-            <ul>
-                <router-link :to="{ name: 'Sobre' }">Sobre</router-link>
-            </ul>
-        </div>
+    <div class="navbar">
+        <router-link :to="{ name: 'Site' }">Início</router-link>
+        <router-link :to="{ name: 'Cliente' }">Cliente</router-link>
+        <router-link :to="{ name: 'Produto' }">Produto</router-link>
+        <router-link :to="{ name: 'Sobre' }">Sobre</router-link>
     </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-
 export default {
 
     name: "AppNavbar",
 
-    computed: mapState(['isNavbarVisible']),
-
-    methods: {
-
-        ...mapMutations([ 'SET_TOGGLE_MENU' ]),
-    }
+    methods: {}
 }
 </script>
 
@@ -40,31 +20,25 @@ export default {
 .navbar {
     grid-area: appNavbar;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    background: rgb(32, 48, 65);
-    background: linear-gradient(180deg, rgba(32, 48, 65, 1) 20%, rgba(56, 227, 139, 1) 80%);
+    background: linear-gradient(180deg, rgba(32, 48, 65, 1) 20%, rgb(56, 227, 139) 80%);
+    background: rgb(47, 70, 95);
+    
 }
 
-ul {
-    list-style-type: none;
-}
-
-/* nav {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: start;
-    align-items: center;
-} */
-
-#nav a {
+a {
+    padding: 0.5rem;
     text-decoration: none;
-
+    font-weight: bold;
     color: #ececec;
 }
 
-/* nav a.router-link-exact-active {
+a:hover {
     color: #5AE2A5;
-} */
+}
+
+a.router-link-exact-active {
+    color: #5AE2A5;
+}
 </style>

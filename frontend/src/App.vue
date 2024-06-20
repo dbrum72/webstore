@@ -1,7 +1,7 @@
 <template>
-	<div class="app" :class="{ 'hide-menu': !isNavbarVisible || !user }">
+	<div class="app">
 
-		<AppHeader :title=$myApp :hideToggle="!user"/>
+		<AppHeader :title=$myApp />
 
 		<AppNavbar />
 
@@ -42,9 +42,10 @@ export default {
 .app {
 	display: grid;
 	grid-template:
-		"appNavbar appHeader" minmax(60px, auto)
-		"appNavbar appContainer" minmax(400px, auto)
-		"appNavbar appFooter" minmax(200px, auto)
+		"appHeader appHeader" minmax(50px, auto)
+		"appNavbar appNavbar" minmax(50px, auto)
+		"appContainer appContainer" minmax(400px, auto)
+		"appFooter appFooter" minmax(200px, auto)
 		/ max(250px) 1fr;
 	/* grid-row-gap: 10px; */
 	-webkit-font-smoothing: antialiased;
